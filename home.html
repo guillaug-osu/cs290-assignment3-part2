@@ -30,18 +30,42 @@
                   return "<a href="+data+">URL</a>";
                }
             },
-            { "data": "forks_url" },
-            { "data": "commits_url" },
+            { "data": "forks_url",
+              "render": function(data)
+               {
+                  return "<a href="+data+">Forks URL</a>";
+               } },
+            { "data": "commits_url",
+              "render": function(data)
+               {
+                  return "<a href="+data+">Commits URL</a>";
+               } },
             { "data": "id" },
-            { "data": "git_pull_url" },
-            { "data": "git_push_url" },
-            { "data": "html_url" },
+            { "data": "git_pull_url",
+              "render": function(data)
+               {
+                  return "<a href="+data+">Git Pull URL</a>";
+               } },
+            { "data": "git_push_url",
+              "render": function(data)
+               {
+                  return "<a href="+data+">Git Push URL</a>";
+               } },
+            { "data": "html_url",
+              "render": function(data)
+               {
+                  return "<a href="+data+">HTML URL</a>";
+               } },
             { "data": "public" },
             { "data": "created_at" },
             { "data": "updated_at" },
             { "data": "comments" },
             { "data": "user" },
-            { "data": "comments_url" },
+            { "data": "comments_url",
+              "render": function(data)
+               {
+                  return "<a href="+data+">Comments URL</a>";
+               } },
          
          ]
              });

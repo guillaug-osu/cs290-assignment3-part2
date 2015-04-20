@@ -24,7 +24,12 @@
                      "dataSrc": ""
                  },
                   "columns": [
-            { "data": "url" },
+            { "data": "url",
+              "render": function(data)
+               {
+                  return "<a href="+data+">URL</a>";
+               }
+            },
             { "data": "forks_url" },
             { "data": "commits_url" },
             { "data": "id" },

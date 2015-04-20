@@ -11,7 +11,7 @@
       <script type="text/javascript" charset="utf8" src="../cs290-assignment3-part2/scripts/bootstrap.js"></script>
       <script type="text/javascript" charset="utf8" src="../cs290-assignment3-part2/scripts/jquery.dataTables.js"></script>
       <script type="text/javascript" charset="utf8" src="../cs290-assignment3-part2/scripts/dataTables.bootstrap.js"></script>
-            <script type="text/javascript">
+      <script type="text/javascript">
          $(document).ready(function() {
              $('#gists').DataTable({
                   "paging": true,
@@ -37,8 +37,8 @@
             { "data": "comments" },
             { "data": "user" },
             { "data": "comments_url" },
-
-       ]
+         
+         ]
              });
          
          
@@ -61,42 +61,26 @@
                </p>
             </div>
          </div>
-        <!-- <div class="row">-->
-        <!--    <div class="col-md-12">-->
-        <!--       <table class="table" id="test-table">-->
-        <!--<thead>-->
-        <!--    <tr>-->
-        <!--        <th>Name</th>-->
-        <!--        <th>Position</th>-->
-        <!--        <th>Office</th>-->
-        <!--        <th>Extn.</th>-->
-        <!--        <th>Start date</th>-->
-        <!--        <th>Salary</th>-->
-        <!--    </tr>-->
-        <!--</thead>-->
-        <!--       </table>-->
-        <!--    </div>-->
-        <!-- </div>-->
-                  <div class="row">
+         <div class="row">
             <div class="col-md-12">
                <table class="table" id="gists">
-        <thead>
-            <tr>
-               <th>URL</th>
-                <th>Forks URL</th>
-                <th>Commits URL</th>
-                 <th>ID</th>
-                <th>Git Pull URL</th>
-                <th>Git Push URL</th>
-                <th>HTML URL</th>
-                <th>Public</th>
-                                                <th>Created At</th>
-                <th>Updated At</th>
-                                <th>Comments</th>
-                                 <th>User</th>
-                                                 <th>Comments URL</th>
-            </tr>
-        </thead>
+                  <thead>
+                     <tr>
+                        <th>URL</th>
+                        <th>Forks URL</th>
+                        <th>Commits URL</th>
+                        <th>ID</th>
+                        <th>Git Pull URL</th>
+                        <th>Git Push URL</th>
+                        <th>HTML URL</th>
+                        <th>Public</th>
+                        <th>Created At</th>
+                        <th>Updated At</th>
+                        <th>Comments</th>
+                        <th>User</th>
+                        <th>Comments URL</th>
+                     </tr>
+                  </thead>
                </table>
             </div>
          </div>

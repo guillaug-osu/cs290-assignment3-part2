@@ -12,11 +12,12 @@
       <script type="text/javascript" charset="utf8" src="../cs290-assignment3-part2/scripts/jquery.dataTables.js"></script>
       <script type="text/javascript" charset="utf8" src="../cs290-assignment3-part2/scripts/dataTables.bootstrap.js"></script>
       <script type="text/javascript">
-         var table = $(document).ready(function() {
-             $('#gists').DataTable({
+         $(document).ready(function() {
+             var table = $('#gists').DataTable({
                   "paging": true,
                  "ordering": true,
                  "scrollCollapse": true,
+                 "processing": true,
                   "scrollX": true,
                   "language": {
     "zeroRecords":"No Gists to display",
@@ -26,7 +27,13 @@
                  "ajax": 
                  {
                     "url": "https://api.github.com/gists",
-                     "dataSrc": ""
+                     "dataSrc": "data",
+                     "type": "POST",
+                     "dataType": "jsonp",
+                     "data": function(d)
+                     {
+                         
+                     }
                  },
                   "columns": [
             { "data": "url",
@@ -132,7 +139,7 @@
             </div>
             <div class="col-md-3">
                  <div class="form-group">
-                  <button type="button" class="btn btn-default">Search</button>
+                  <button type="button" class="btn btn-default" id="search">Search</button>
               </div>
             </div>
          </div>

@@ -69,7 +69,14 @@
                           else
                   return language;
                }
-            }
+            },
+            				{
+					"targets": 5,
+					"render": function(){
+						return '<input class="btn btn-default" type="button" value="Add to Favorites">';
+					}
+				}
+            
          
          ]
              });
@@ -138,6 +145,7 @@
                         <th>ID</th>
                         <th>FileName</th>
                         <th>Language</th>
+                        <th>Add to Favorites</th>
                      </tr>
                   </thead>
                </table>

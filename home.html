@@ -12,12 +12,16 @@
       <script type="text/javascript" charset="utf8" src="../cs290-assignment3-part2/scripts/jquery.dataTables.js"></script>
       <script type="text/javascript" charset="utf8" src="../cs290-assignment3-part2/scripts/dataTables.bootstrap.js"></script>
       <script type="text/javascript">
-         $(document).ready(function() {
+         var table = $(document).ready(function() {
              $('#gists').DataTable({
                   "paging": true,
                  "ordering": true,
                  "scrollCollapse": true,
                   "scrollX": true,
+                  				"oLanguage": {
+				"sEmptyTable": "Let's search for some Gists!"
+				},
+                 "lengthMenu": [[6, 30],[6, "ALL"]],
                  "ajax": 
                  {
                     "url": "https://api.github.com/gists",
@@ -25,50 +29,50 @@
                  },
                   "columns": [
             { "data": "url",
-              "render": function(data)
+               "visible": false
+            },
+            {
+                "data": "description",
+                "render": function(data, type, row)
+                {
+                    return "<a href="+row['url']+" target='_blank'>"+data+"</a>";
+                }
+            },
+            { "data": "id" },
+               { "data": "files",
+               "render": function(data)
                {
-                  return "<a href="+data+">URL</a>";
+                          var name = Object.keys(data)[0];
+                          var filename = data[name]['filename'];
+                          if(filename === null)
+                          {
+                              return "No FileName";
+                          }
+                          else
+                  return filename;
                }
             },
-            { "data": "forks_url",
-              "render": function(data)
+            { "data": "files",
+               "render": function(data)
                {
-                  return "<a href="+data+">Forks URL</a>";
-               } },
-            { "data": "commits_url",
-              "render": function(data)
-               {
-                  return "<a href="+data+">Commits URL</a>";
-               } },
-            { "data": "id" },
-            { "data": "git_pull_url",
-              "render": function(data)
-               {
-                  return "<a href="+data+">Git Pull URL</a>";
-               } },
-            { "data": "git_push_url",
-              "render": function(data)
-               {
-                  return "<a href="+data+">Git Push URL</a>";
-               } },
-            { "data": "html_url",
-              "render": function(data)
-               {
-                  return "<a href="+data+">HTML URL</a>";
-               } },
-            { "data": "public" },
-            { "data": "created_at" },
-            { "data": "updated_at" },
-            { "data": "comments" },
-            { "data": "user" },
-            { "data": "comments_url",
-              "render": function(data)
-               {
-                  return "<a href="+data+">Comments URL</a>";
-               } },
+                          var name = Object.keys(data)[0];
+                          var language = data[name]['language'];
+                          if(language === null)
+                          {
+                              return "No Language";
+                          }
+                          else
+                  return language;
+               }
+            }
          
          ]
              });
+             
+             
+             				$('#search').click(function (){
+					table.draw();
+		    } );
          
          
          });
@@ -91,23 +95,44 @@
             </div>
          </div>
          <div class="row">
+            <div class="col-md-3">
+               <div class="checkbox">
+                 <label>
+                   <input type="checkbox" id="blankCheckbox" value="Python" aria-label="Python">Python</input>
+                 </label>
+               </div>
+                              <div class="checkbox">
+                 <label>
+                   <input type="checkbox" id="blankCheckbox" value="JSON" aria-label="JSON">JSON</input>
+                 </label>
+               </div>
+                              <div class="checkbox">
+                 <label>
+                   <input type="checkbox" id="blankCheckbox" value="JavaScript " aria-label="JavaScript ">JavaScript </input>
+                 </label>
+               </div>
+                              <div class="checkbox">
+                 <label>
+                   <input type="checkbox" id="blankCheckbox" value="SQL" aria-label="SQL">SQL</input>
+                 </label>
+               </div>
+            </div>
+            <div class="col-md-3">
+                 <div class="form-group">
+                  <button type="button" class="btn btn-default">Search</button>
+              </div>
+            </div>
+         </div>
+         <div class="row">
             <div class="col-md-12">
                <table class="table table-striped table-bordered" id="gists">
                   <thead>
                      <tr>
                         <th>URL</th>
-                        <th>Forks URL</th>
-                        <th>Commits URL</th>
+                        <th>Description</th>
                         <th>ID</th>
-                        <th>Git Pull URL</th>
-                        <th>Git Push URL</th>
-                        <th>HTML URL</th>
-                        <th>Public</th>
-                        <th>Created At</th>
-                        <th>Updated At</th>
-                        <th>Comments</th>
-                        <th>User</th>
-                        <th>Comments URL</th>
+                        <th>FileName</th>
+                        <th>Language</th>
                      </tr>
                   </thead>
                </table>

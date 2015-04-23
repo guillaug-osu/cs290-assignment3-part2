@@ -35,6 +35,11 @@
                 "data": "description",
                 "render": function(data, type, row)
                 {
+                    if(data === null || data === "")
+                    {
+                        return "<a href="+row['url']+" target='_blank'>No Description</a>";
+                    }
+                    else
                     return "<a href="+row['url']+" target='_blank'>"+data+"</a>";
                 }
             },

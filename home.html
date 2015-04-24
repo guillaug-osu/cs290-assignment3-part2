@@ -11,92 +11,6 @@
       <script type="text/javascript" charset="utf8" src="../cs290-assignment3-part2/scripts/bootstrap.js"></script>
       <script type="text/javascript" charset="utf8" src="../cs290-assignment3-part2/scripts/jquery.dataTables.js"></script>
       <script type="text/javascript" charset="utf8" src="../cs290-assignment3-part2/scripts/dataTables.bootstrap.js"></script>
-      <script type="text/javascript">
-         $(document).ready(function() {
-             var table = $('#gists').DataTable({
-                  "paging": true,
-                 "ordering": true,
-                 "scrollCollapse": true,
-                 "processing": true,
-                  "scrollX": true,
-                  "language": {
-    "zeroRecords":"No Gists to display",
-    "emptyTable": "Let's search for some Gists!"
-  },
-                 "lengthMenu": [[6, 30],[6, "ALL"]],
-                 "ajax": 
-                 {
-                    "url": "https://api.github.com/gists",
-                     "dataSrc": "data",
-                     "type": "POST",
-                     "dataType": "jsonp",
-                     "data": function(d)
-                     {
-                         
-                     }
-                 },
-                  "columns": [
-            { "data": "url",
-               "visible": false
-            },
-            {
-                "data": "description",
-                "render": function(data, type, row)
-                {
-                    if(data === null || data === "")
-                    {
-                        return "<a href="+row['url']+" target='_blank'>No Description</a>";
-                    }
-                    else
-                    return "<a href="+row['url']+" target='_blank'>"+data+"</a>";
-                }
-            },
-            { "data": "id" },
-               { "data": "files",
-               "render": function(data)
-               {
-                          var name = Object.keys(data)[0];
-                          var filename = data[name]['filename'];
-                          if(filename === null)
-                          {
-                              return "No FileName";
-                          }
-                          else
-                  return filename;
-               }
-            },
-            { "data": "files",
-               "render": function(data)
-               {
-                          var name = Object.keys(data)[0];
-                          var language = data[name]['language'];
-                          if(language === null)
-                          {
-                              return "No Language";
-                          }
-                          else
-                  return language;
-               }
-            },
-            				{
-					"targets": 5,
-					"render": function(){
-						return '<input class="btn btn-default btn-primary" type="button" value="Add to Favorites">';
-					}
-				}
-            
-         
-         ]
-             });
-             
-             
-             				$('#search').click(function (){
-					table.draw();
-		    } );
-         
-         
-         });
-      </script>
    </head>
    <body>
       <div class='container'>
@@ -160,5 +74,92 @@
             </div>
          </div>
       </div>
+      <script type="text/javascript">
+         $(document).ready(function() {
+             var table = $('#gists').DataTable({
+                //   "paging": true,
+                 "scrollCollapse": true,
+                 "processing": true,
+                  		"serverSide": true,
+                  "scrollX": true,
+                  "language": {
+    "zeroRecords":"No Gists to display",
+    "emptyTable": "Let's search for some Gists!"
+  },
+                "lengthMenu": [[6, 30],[6, "ALL"]],
+                 "ajax": 
+                 {
+                    "url": "https://api.github.com/gists?page=1&per_page=6",
+                     "dataSrc": "data",
+                     "type": "GET",
+                     "dataType": "jsonp"
+                 },
+                  "columns": [
+            { "data": "url",
+               "visible": false
+            },
+            {
+                "data": "description",
+                "render": function(data, type, row)
+                {
+                    if(data === null || data === "")
+                    {
+                        return "<a href="+row['url']+" target='_blank'>No Description</a>";
+                    }
+                    else
+                    return "<a href="+row['url']+" target='_blank'>"+data+"</a>";
+                }
+            },
+            { "data": "id" },
+               { "data": "files",
+               "render": function(data)
+               {
+                          var name = Object.keys(data)[0];
+                          var filename = data[name]['filename'];
+                          if(filename === null)
+                          {
+                              return "No FileName";
+                          }
+                          else
+                  return filename;
+               }
+            },
+            { "data": "files",
+               "render": function(data)
+               {
+                          var name = Object.keys(data)[0];
+                          var language = data[name]['language'];
+                          if(language === null)
+                          {
+                              return "No Language";
+                          }
+                          else
+                  return language;
+               }
+            },
+            				{
+					"targets": 5,
+					"render": function(){
+						return '<input class="btn btn-default btn-primary" type="button" value="Add to Favorites">';
+					}
+				}
+            
+         
+         ],
+         "deferLoading": 0,
+                 "iDisplayLength":10,
+             "initComplete": function(settings, json) {
+                console.log(json);
+            }
+             });
+             
+             
+             				$('#search').click(function (){
+					table.draw();
+		    } );
+         
+         
+         });
+      </script>
    </body>
 </html>

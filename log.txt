@@ -1,4 +1,22 @@
 Start: 
+End: Fri, 24 Apr 2015 00:54:52 +0000 
+Tasks: Added a favorites table, Added headers for the tables and did more work with pagination.
+Start: 
+End: Fri, 24 Apr 2015 00:09:23 +0000 
+Tasks: Started working on pagination. Table is now loading with only 6 rows instead of 30 rows.
+Start: 
+End: Thu, 23 Apr 2015 23:31:39 +0000 
+Tasks: Changed data parameters for datatable
+Start: 
+End: Thu, 23 Apr 2015 23:19:15 +0000 
+Tasks: Changed datatables language options
+Start: 
+End: Thu, 23 Apr 2015 22:59:03 +0000 
+Tasks: Updated log to include work for today
+Start: 
+End: Thu, 23 Apr 2015 22:54:41 +0000 
+Tasks: Changed button color
+Start: 
 End: Thu, 23 Apr 2015 22:54:41 +0000 
 Tasks: Changed button color
 Start: 

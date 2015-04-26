@@ -1,3 +1,8 @@
+End: Sun, 26 Apr 2015 14:56:22 +0000 
+Tasks: Favorites button now saves data to localstorage and remove button removes rows from favorites table
+Start: 
+End: Sun, 26 Apr 2015 02:00:10 +0000 
+Tasks: Added work done on remove favorites button to work log
 Start: 
 End: Sun, 26 Apr 2015 01:57:11 +0000 
 Tasks: changed layout of page and added remove functionality to favorites table

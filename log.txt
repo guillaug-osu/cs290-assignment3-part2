@@ -1,4 +1,10 @@
 Start: 
+End: Sun, 26 Apr 2015 01:57:11 +0000 
+Tasks: changed layout of page and added remove functionality to favorites table
+Start: 
+End: Fri, 24 Apr 2015 00:57:24 +0000 
+Tasks: Added work done for new table, headers and pagination
+Start: 
 End: Fri, 24 Apr 2015 00:54:52 +0000 
 Tasks: Added a favorites table, Added headers for the tables and did more work with pagination.
 Start: 

@@ -24,42 +24,45 @@
                <p class="lead">In this assignment I will build on my JavaScript skills to make a functional website that uses 
                   asynchronous calls to pull data from an online provider. In addition to this I will allow users to mark favorites 
                   and save them using local storage so that they are displayed when they return to the page without the need for any 
-                  additional AJAX calls.
+                  additional AJAX calls. Right now, the table pulls the data from GitHub but the filter is not working. Also, although
+                  the "Add to Favorites" button works and is added to localstorage, the objects are not removed from localstorage when
+                  the remove button is clicked. This needs more work. For sake of avoiding wasting time to perfect everything, I have 
+                  left everything the way it is and will try to fix the site another time.
                </p>
             </div>
          </div>
          <div class="row">
             <div class="col-md-3">
                <div class="checkbox">
-                 <label>
-                   <input type="checkbox" id="blankCheckbox" value="Python" aria-label="Python">Python</input>
-                 </label>
+                  <label>
+                  <input type="checkbox" id="python" value="Python" aria-label="Python">Python</input>
+                  </label>
                </div>
-                              <div class="checkbox">
-                 <label>
-                   <input type="checkbox" id="blankCheckbox" value="JSON" aria-label="JSON">JSON</input>
-                 </label>
+               <div class="checkbox">
+                  <label>
+                  <input type="checkbox" id="json" value="JSON" aria-label="JSON">JSON</input>
+                  </label>
                </div>
-                              <div class="checkbox">
-                 <label>
-                   <input type="checkbox" id="blankCheckbox" value="JavaScript " aria-label="JavaScript ">JavaScript </input>
-                 </label>
+               <div class="checkbox">
+                  <label>
+                  <input type="checkbox" id="javscript" value="JavaScript " aria-label="JavaScript ">JavaScript </input>
+                  </label>
                </div>
-                              <div class="checkbox">
-                 <label>
-                   <input type="checkbox" id="blankCheckbox" value="SQL" aria-label="SQL">SQL</input>
-                 </label>
+               <div class="checkbox">
+                  <label>
+                  <input type="checkbox" id="sql" value="SQL" aria-label="SQL">SQL</input>
+                  </label>
                </div>
             </div>
             <div class="col-md-3">
-                 <div class="form-group">
+               <div class="form-group">
                   <button type="button" class="btn btn-default" id="search">Search</button>
-              </div>
+               </div>
             </div>
          </div>
          <div class="row">
             <div class="col-md-6">
-                                <h3>List of Gists</h3>
+               <h3>List of Gists</h3>
                <table class="table table-striped table-bordered" id="gists">
                   <thead>
                      <tr>
@@ -71,9 +74,9 @@
                   </thead>
                </table>
             </div>
-                        <div class="col-md-6">
-                <h3>Favorite Gists</h3>
-                                 <table class="table table-striped table-bordered" id="favorites">
+            <div class="col-md-6">
+               <h3>Favorite Gists</h3>
+               <table class="table table-striped table-bordered" id="favorites">
                   <thead>
                      <tr>
                         <th>URL</th>
@@ -85,54 +88,43 @@
             </div>
          </div>
       </div>
-      <script>
-          function remove_favorite(table_row){
-              
-              var other = $('#favorites').DataTable();
-              
-              
-              var test = other.row(table_row);
-              test.remove().draw();
-          }
-      </script>
-      <script>
-                 function favorites(row){           
-                      var other = $('#favorites').DataTable();
-                      var gist = $('#gists').DataTable();
-                      
-                   var url = gist.cell(row, 0).data();
-                 var language = gist.cell(row, 2).data();
-                 
-                 var name = Object.keys(language)[0];
-                 var temp;
-                    var data = language[name]['language'];
-                          if(data === null)
-                          {
-                              temp =  "No Language";
-                          }
-                          else
-                          {
-                              temp = data;
-                          }
-                          var info = other.page.info();
-                          var count = info.recordsTotal;
-                      
-              other.row.add(["<a href="+url+" target='_blank'>URL</a>",temp,"<input class='btn btn-default btn-primary' onclick='remove_favorite("+count+")' type='button' value='Remove'>"]).draw();
-                 };
-      </script>
+      >
       <script type="text/javascript">
          $(document).ready(function() {
+             
+             
+             if ( !localStorage.getItem('favorites') ) {
+         localStorage.setItem('favorites', '[]');
+             }
+             else
+             {
+         
+         var a = JSON.parse( localStorage.getItem('favorites') );
+         for ( var i=a.length-1 ; i>=0 ; i-- ) {
+            if ( a[i] === null ) {
+                a.splice( i, 1 );
+            }
+         }
+         localStorage.setItem('favorites', JSON.stringify(a));
+             }
+         
              
             var favorites = $('#favorites').DataTable(
                 {
                     "info": false,
                     "paging": false,
                     "ordering": false,
+                    "data": JSON.parse( localStorage.getItem('favorites') ),
+                     "columns": [
+            { "data": "url" },
+            { "data": "language" },
+            { "data": "remove" }
+         ],
                                      "scrollCollapse": true,
                   "scrollX": true,
                                       "language": {
-    "emptyTable": "Add some favorites!"
-  },
+         "emptyTable": "Add some favorites!"
+         },
                 });
              
              
@@ -143,20 +135,16 @@
                   		"serverSide": true,
                   "scrollX": true,
                   "language": {
-    "zeroRecords":"No Gists to display",
-    "emptyTable": "Let's search for some Gists!"
-  },
+         "zeroRecords":"No Gists to display",
+         "emptyTable": "Let's search for some Gists!"
+         },
                 "lengthMenu": [[6, 30],[6, "ALL"]],
                  "ajax": 
                  {
                     "url": "https://api.github.com/gists?page=1&per_page=15",
                      "dataSrc": "data",
                      "type": "POST",
-                     "dataType": "jsonp",
-                     "data": function(d)
-                     {
-                         d.test = "test";
-                     }
+                     "dataType": "jsonp"
                  },
                   "columns": [
             { "data": "url",
@@ -188,23 +176,71 @@
                }
             },
             				{
-					"targets": 5,
-					"render": function(data, type, full, meta){
-						return '<input class="btn btn-default btn-primary" onclick="favorites('+meta['row']+')" type="button" value="Add to Favorites">';
-					}
-				}
-            
-         
+         "targets": 5,
+         "render": function(data, type, full, meta){
+         return '<input class="btn btn-default btn-primary" onclick="favorites('+meta['row']+')" type="button" value="Add to Favorites">';
+         }
+         }
          ],
          "deferLoading": 0
+         
              });
              
              
              				$('#search').click(function (){
-					table.draw();
-		    } );
-		 
-        });
+             				    
+         	    table.draw();
+         } );
+         
+         
+         });
+      </script>
+      <script>
+         function remove_favorite(table_row){
+             
+             var other = $('#favorites').DataTable();
+             
+             var test = other.row(table_row);
+             test.remove().draw();
+         }
+      </script>
+      <script>
+         function favorites(row){   
+             
+              var other = $('#favorites').DataTable();
+              var gist = $('#gists').DataTable();
+              
+           var url = gist.cell(row, 0).data();
+         var language = gist.cell(row, 2).data();
+         
+         var name = Object.keys(language)[0];
+         var temp;
+            var data = language[name]['language'];
+                  if(data === null)
+                  {
+                      temp =  "No Language";
+                  }
+                  else
+                  {
+                      temp = data;
+                  }
+                  var info = other.page.info();
+                  var count = info.recordsTotal;
+                  
+                  
+                                            var list = JSON.parse( localStorage.getItem('favorites') );
+         
+         
+         list.push(  {
+            "url": url,
+            "language": temp,
+            "remove": "<input class='btn btn-default btn-primary' onclick='remove_favorite("+count+")' type='button' value='Remove'>"
+         } );
+         
+         localStorage.setItem('favorites', JSON.stringify(list));
+         other.draw();
+         
+         };
       </script>
    </body>
 </html>

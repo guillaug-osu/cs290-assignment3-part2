@@ -204,6 +204,7 @@
              
              var test = other.row(table_row);
              test.remove().draw();
+             localStorage.clear();
          }
       </script>
       <script>
@@ -240,9 +241,12 @@
          } );
          
          localStorage.setItem('favorites', JSON.stringify(list));
-         other.draw();
+         other.row.add({
+            "url": url,
+            "language": temp,
+            "remove": "<input class='btn btn-default btn-primary' onclick='remove_favorite("+count+")' type='button' value='Remove'>"}).draw();
          
-         };
+         }
       </script>
    </body>
 </html>
